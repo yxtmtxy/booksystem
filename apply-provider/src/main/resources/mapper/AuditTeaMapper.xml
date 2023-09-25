@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.AuditTeaMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.AuditTea" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="courseId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="courseName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teaId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="teaName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="price" jdbcType="FLOAT" javaType="java.lang.Float" />
+      <arg column="sum" jdbcType="FLOAT" javaType="java.lang.Float" />
+      <arg column="date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from audit1
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from audit1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.AuditTea" >
+    insert into audit1 (id,bookId, bookName,
+                        CourseId, CourseName, teaId, teaName,
+      number,price,sum, date, type)
+    values (#{id,jdbcType=INTEGER},#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR},
+            #{courseId,jdbcType=INTEGER},  #{courseName,jdbcType=VARCHAR},
+            #{teaId,jdbcType=INTEGER}, #{teaName,jdbcType=VARCHAR},
+            #{number,jdbcType=INTEGER},#{price,jdbcType=FLOAT},#{sum,jdbcType=FLOAT},
+            #{date,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.AuditTea" >
+    update audit1
+    set bookId = #{bookId,jdbcType=INTEGER},
+        bookName = #{bookName,jdbcType=VARCHAR},
+      CourseId = #{courseId,jdbcType=INTEGER},
+      CourseName = #{courseName,jdbcType=VARCHAR},
+      teaId = #{teaId,jdbcType=INTEGER},
+      teaName = #{teaName,jdbcType=VARCHAR},
+        number = #{sum,jdbcType=INTEGER},
+        price = #{sum,jdbcType=FLOAT},
+        sum = #{sum,jdbcType=FLOAT},
+      date = #{date,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryAuditTeaAll" parameterType="com.yx.pojo.AuditTea" resultType="com.yx.pojo.AuditTea">
+    SELECT * from audit1
+    <where>
+      <if test="bookId!=null">
+        and bookId like '%${bookId}%'
+      </if>
+      <if test="type!=null">
+        and type like '%${type}%'
+      </if>
+    </where>
+  </select>
+</mapper>

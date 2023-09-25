@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.Order" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="reId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="store" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="startDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from `order`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from `order`
+    where id =#{id,jdbcType=INTEGER} and type=#{type,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `order`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.Order" >
+    insert into `order` (id, bookId, bookName,
+      type, reId,store,number,  state,
+      startDate)
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{reId,jdbcType=INTEGER}, #{store,jdbcType=INTEGER},#{number,jdbcType=INTEGER},
+            #{state,jdbcType=INTEGER},#{startDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.Order" >
+    update `order`
+    set bookId = #{bookId,jdbcType=INTEGER},
+      bookName = #{bookName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      reId = #{reId,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      number=#{number,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      startDate = #{startDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+
+  </update>
+  <select id="queryOrderAll" parameterType="com.yx.pojo.Order" resultType="com.yx.pojo.Order">
+    SELECT * from `order`
+    <where>
+      <if test="bookName!=null">
+        and bookName like '%${bookName}%'
+      </if>
+      <if test="type!=null">
+        and type like '%${type}%'
+      </if>
+      <if test="state!=null">
+        and state like '%${state}%'
+      </if>
+    </where>
+  </select>
+</mapper>

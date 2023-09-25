@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.dao.GradeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yx.pojo.GradeInfo">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="campus" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="faculty" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="major" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="grade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="stuId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.yx.pojo.GradeInfo">
+    insert into grade (id, campus, faculty, 
+      major, grade, sum, stuId)
+    values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{faculty,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{sum,jdbcType=INTEGER}, 
+      #{stuId,jdbcType=INTEGER})
+  </insert>
+
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from grade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <update id="updateById" parameterType="com.yx.pojo.GradeInfo">
+    update grade
+    set
+      id = #{id,jdbcType=INTEGER},
+      campus = #{campus,jdbcType=VARCHAR},
+      faculty = #{faculty,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      sum = #{sum,jdbcType=INTEGER},
+      stuId = #{stuId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryGradeInfoAll" parameterType="com.yx.pojo.GradeInfo" resultType="com.yx.pojo.GradeInfo">
+    SELECT * from grade
+    <where>
+      <if test="campus!=null">
+        and campus like '%${campus}%'
+      </if>
+      <if test="faculty!=null">
+        and faculty like '%${faculty}%'
+      </if>
+    </where>
+  </select>
+
+</mapper>

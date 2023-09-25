@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.ReceiveStuMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.ReceiveStu" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="courseId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="courseName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from receive2
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from receive2
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.ReceiveStu" >
+    insert into receive2 (id, bookId, bookName, 
+      courseId, courseName, sum, 
+      date, type)
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, 
+      #{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{sum,jdbcType=INTEGER}, 
+      #{date,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.ReceiveStu" >
+    update receive2
+    set bookId = #{bookId,jdbcType=INTEGER},
+      bookName = #{bookName,jdbcType=VARCHAR},
+      courseId = #{courseId,jdbcType=INTEGER},
+      courseName = #{courseName,jdbcType=VARCHAR},
+      sum = #{sum,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryReceiveStuAll" parameterType="com.yx.pojo.ReceiveStu" resultType="com.yx.pojo.ReceiveStu">
+    SELECT * from receive2
+    where stuId = #{stuId,jdbcType=INTEGER}
+    <if test="bookId!=null">
+      and bookId LIKE CONCAT('%', #{bookId}, '%')
+    </if>
+    <if test="type!=null">
+      and type LIKE CONCAT('%', #{type}, '%')
+    </if>
+  </select>
+</mapper>

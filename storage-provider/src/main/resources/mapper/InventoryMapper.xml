@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.InventoryMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.Inventory" >
+    <constructor >
+      <idArg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="price" jdbcType="FLOAT" javaType="java.lang.Float" />
+      <arg column="sum" jdbcType="FLOAT" javaType="java.lang.Float" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from inventory
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from inventory
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.Inventory" >
+    insert into inventory (bookId, bookName, number, 
+      price, sum)
+    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
+      #{price,jdbcType=FLOAT}, #{sum,jdbcType=FLOAT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.Inventory" >
+    update inventory
+    set bookName = #{bookName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=FLOAT},
+      sum = #{sum,jdbcType=FLOAT}
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </update>
+  <select id="queryInventoryAll" parameterType="com.yx.pojo.Inventory" resultType="com.yx.pojo.Inventory">
+    SELECT * from inventory
+    <where>
+      <if test="bookName!=null">
+        and bookName like '%${bookName}%'
+      </if>
+      <if test="bookId!=null">
+        and bookId like '%${bookId}%'
+      </if>
+    </where>
+  </select>
+</mapper>

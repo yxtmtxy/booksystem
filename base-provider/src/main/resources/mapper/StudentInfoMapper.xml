@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.StudentInfoMapper">
+    <resultMap id="BaseResultMap" type="com.yx.pojo.StudentInfo">
+        <id column="stuId" jdbcType="INTEGER" property="stuId" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="stuName" jdbcType="VARCHAR" property="stuName" />
+        <result column="stuSex" jdbcType="VARCHAR" property="stuSex"/>
+        <result column="stuFaculty" jdbcType="VARCHAR" property="stuFaculty"/>
+        <result column="stuMajor" jdbcType="VARCHAR" property="stuMajor"/>
+        <result column="stuClass" jdbcType="VARCHAR" property="stuClass"/>
+        <result column="stuPhone" jdbcType="VARCHAR" property="stuPhone"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from student
+        where stuId = #{stuId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUsername" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from student
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from student
+        where stuId = #{stuId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yx.pojo.StudentInfo">
+        insert into student (stuId,username,password,
+                             stuName,stuSex,stuFaculty,
+                             stuMajor,stuClass,stuPhone)
+        values (#{stuId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+                #{stuName,jdbcType=VARCHAR},#{stuSex,jdbcType=VARCHAR},#{stuFaculty,jdbcType=VARCHAR},
+                #{stuMajor,jdbcType=VARCHAR},#{stuClass,jdbcType=VARCHAR},#{stuPhone,jdbcType=VARCHAR}
+                )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.yx.pojo.StudentInfo">
+        update student
+        set
+            username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            stuName = #{stuName,jdbcType=VARCHAR},
+            stuSex = #{stuSex,jdbcType=VARCHAR},
+            stuFaculty = #{stuFaculty,jdbcType=VARCHAR},
+            stuMajor = #{stuMajor,jdbcType=VARCHAR},
+            stuClass = #{stuClass,jdbcType=VARCHAR},
+            stuPhone = #{stuPhone,jdbcType=VARCHAR}
+        where stuId = #{stuId,jdbcType=INTEGER}
+    </update>
+    <select id="queryStudentInfoAll" parameterType="com.yx.pojo.StudentInfo" resultType="com.yx.pojo.StudentInfo">
+        SELECT * from student
+        <where>
+            <if test="stuName!=null">
+                and stuName like '%${stuName}%'
+            </if>
+            <if test="stuId!=null">
+                and stuId like '%${stuId}%'
+            </if>
+        </where>
+    </select>
+    <select id="queryUserByNameAndPassword" resultType="com.yx.pojo.StudentInfo">
+        select * from student where username=#{username} and password=#{password}
+    </select>
+</mapper>

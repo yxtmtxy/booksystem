@@ -1,0 +1,62 @@
+server:
+  port: 8080
+
+# gateway configuration
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: route01
+          uri: lb://eureka-consumer
+          predicates:
+            - Path=/login
+            #基于服务serivce id（服务名）去查找对应的服务，让请求从网关层进行均衡转发
+          filters:
+            - name: Retry
+              args:
+                retries: 3
+                status: 503
+        - id: after_route
+          uri: http://www.baidu.com/
+          predicates:
+              - After=2023-01-20T06:06:06+08:00[Asia/Shanghai]
+              #locaalhost:8080转到百度搜索
+
+
+
+
+
+# eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://EurekaServerA:8061/eureka/
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+    hostname: localhost
+
+# hystrix configuration
+hystrix:
+  metrics:
+    enabled: true
+    # 超时时间,默认2000ms
+    polling-interval-ms: 5000
+
+# security configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

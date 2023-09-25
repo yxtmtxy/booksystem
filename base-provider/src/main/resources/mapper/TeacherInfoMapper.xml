@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.TeacherInfoMapper">
+    <resultMap id="BaseResultMap" type="com.yx.pojo.TeacherInfo">
+        <id column="teaId" jdbcType="INTEGER" property="teaId" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="teaName" jdbcType="VARCHAR" property="teaName" />
+        <result column="teaSex" jdbcType="VARCHAR" property="teaSex"/>
+        <result column="teaFaculty" jdbcType="VARCHAR" property="teaFaculty"/>
+        <result column="teaPhone" jdbcType="VARCHAR" property="teaPhone"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from teacher
+        where teaId = #{teaId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from teacher
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from teacher
+        where teaId = #{teaId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yx.pojo.TeacherInfo">
+        insert into teacher (teaId,username,password,
+                             teaName,teaSex,teaFaculty,teaPhone)
+        values (#{teaId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+                #{teaName,jdbcType=VARCHAR},#{teaSex,jdbcType=VARCHAR},#{teaFaculty,jdbcType=VARCHAR},
+                #{teaPhone,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.yx.pojo.TeacherInfo">
+        update teacher
+        set
+            username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            teaName = #{teaName,jdbcType=VARCHAR},
+            teaSex = #{teaSex,jdbcType=VARCHAR},
+            teaFaculty = #{teaFaculty,jdbcType=VARCHAR},
+            teaPhone = #{teaPhone,jdbcType=VARCHAR}
+        where teaId = #{teaId,jdbcType=INTEGER}
+    </update>
+    <select id="queryTeacherInfoAll" parameterType="com.yx.pojo.TeacherInfo" resultType="com.yx.pojo.TeacherInfo">
+        SELECT * from teacher
+        <where>
+            <if test="teaName!=null">
+                and teaName like '%${teaName}%'
+            </if>
+            <if test="teaId!=null">
+                and teaId like '%${teaId}%'
+            </if>
+        </where>
+
+    </select>
+    <select id="queryUserByNameAndPassword" resultType="com.yx.pojo.TeacherInfo">
+        select * from teacher where username=#{username} and password=#{password}
+    </select>
+</mapper>

@@ -1,0 +1,66 @@
+---
+server:
+  port: 8061
+eureka:
+  instance:
+    hostname: EurekaServerA
+    lease-renewal-interval-in-seconds: 30
+    prefer-ip-address: false
+  server:
+    enable-self-preservation: true
+    renewal-percent-threshold: 0.49
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://EurekaServerB:8062/eureka/,http://EurekaServerC:8063/eureka/
+    fetch-registry: true
+spring:
+  config:
+    activate:
+      on-profile: EurekaServerA
+  application:
+    name: EurekaServer
+---
+server:
+  port: 8062
+eureka:
+  instance:
+    hostname: EurekaServerB
+    lease-renewal-interval-in-seconds: 30
+    prefer-ip-address: false
+  server:
+    enable-self-preservation: true
+    renewal-percent-threshold: 0.49
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://EurekaServerA:8061/eureka/,http://EurekaServerC:8063/eureka/
+    fetch-registry: true
+spring:
+  config:
+    activate:
+      on-profile: EurekaServerB
+  application:
+    name: EurekaServer
+---
+server:
+  port: 8063
+eureka:
+  instance:
+    hostname: EurekaServerC
+    lease-renewal-interval-in-seconds: 30
+    prefer-ip-address: false
+  server:
+    enable-self-preservation: true
+    renewal-percent-threshold: 0.49
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://EurekaServerA:8061/eureka/,http://EurekaServerB:8062/eureka/
+    fetch-registry: true
+spring:
+  config:
+    activate:
+      on-profile: EurekaServerC
+  application:
+    name: EurekaServer

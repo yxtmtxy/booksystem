@@ -1,0 +1,60 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "welcome"
+  },
+  "logoInfo": {
+    "title": "教师端",
+    "image": "images/favicon.ico",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "信息管理",
+      "icon": "fa fa-bars",
+      "href": "",
+      "target": "_self",
+      "child": [
+          {
+              "title": "教师信息一览",
+              "href": "teaInfo",
+              "icon": "fa fa-user-circle-o",
+              "target": "_self"
+          },
+          {
+          "title": "教材信息一览",
+          "href": "bookInfo",
+          "icon": "fa fa-book",
+          "target": "_self"
+           },
+           {
+          "title": "课程信息一览",
+          "href": "courseInfo",
+          "icon": "fa fa-calendar",
+          "target": "_self"
+           }
+      ]
+    },
+    {
+      "title": "教材管理",
+      "icon": "fa fa-bars",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "教材申请",
+          "href": "applyTeaIndex",
+          "icon": "fa fa-book",
+          "target": "_self"
+        },
+        {
+          "title": "教材领取",
+          "href": "receiveTea",
+          "icon": "fa fa-tag",
+          "target": "_self"
+        }
+      ]
+    }
+
+  ]
+}

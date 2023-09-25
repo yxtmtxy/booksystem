@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.StorageMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.Storage" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="price" jdbcType="FLOAT" javaType="java.lang.Float" />
+      <arg column="sum" jdbcType="FLOAT" javaType="java.lang.Float" />
+      <arg column="vendorId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from storage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from storage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.Storage" >
+    insert into storage (id, bookId, bookName,
+      number, price, sum, 
+      vendorId, date)
+    values (#{id,jdbcType=INTEGER},#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR},
+      #{number,jdbcType=INTEGER}, #{price,jdbcType=FLOAT}, #{sum,jdbcType=FLOAT},
+      #{vendorId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.Storage" >
+    update storage
+    set bookId = #{bookId,jdbcType=INTEGER},
+      bookName = #{bookName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=FLOAT},
+      sum = #{sum,jdbcType=FLOAT},
+      vendorId = #{vendorId,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryStorageAll" parameterType="com.yx.pojo.Storage" resultType="com.yx.pojo.Storage">
+    SELECT * from storage
+    <where>
+      <if test="bookName!=null">
+        and bookName like '%${bookName}%'
+      </if>
+      <if test="bookId!=null">
+        and bookId like '%${bookId}%'
+      </if>
+    </where>
+  </select>
+</mapper>

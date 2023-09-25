@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eurekaconsumer.dao.queryMapper">
+
+    <select id="queryAdminInfoAll" parameterType="com.eurekaconsumer.pojo.Admin" resultType="com.eurekaconsumer.pojo.Admin">
+        SELECT * from admin
+        <where>
+            <if test="username!=null">
+                and username like '%${username}%'
+            </if>
+            <if test="adminType!=null">
+                and adminType like '%${adminType}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryApplyStuAll" parameterType="com.eurekaconsumer.pojo.ApplyStu" resultType="com.eurekaconsumer.pojo.ApplyStu">
+        SELECT * from apply2
+        where stuId = #{stuId,jdbcType=INTEGER}
+        <if test="bookId!=null">
+            and bookId like '%${bookId}%'
+        </if>
+        <if test="type!=null">
+            and type like '%${type}%'
+        </if>
+    </select>
+
+    <select id="queryApplyTeaAll" parameterType="com.eurekaconsumer.pojo.ApplyTea" resultType="com.eurekaconsumer.pojo.ApplyTea">
+        SELECT * from apply1
+        where  teaId = #{teaId,jdbcType=INTEGER}
+        <if test="bookId!=null">
+            and bookId like '%${bookId}%'
+        </if>
+        <if test="type!=null">
+            and type like '%${type}%'
+        </if>
+    </select>
+
+    <select id="queryAuditStuAll" parameterType="com.eurekaconsumer.pojo.AuditStu" resultType="com.eurekaconsumer.pojo.AuditStu">
+        SELECT * from audit2
+        <where>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+            <if test="type!=null">
+                and type like '%${type}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAuditTeaAll" parameterType="com.eurekaconsumer.pojo.AuditTea" resultType="com.eurekaconsumer.pojo.AuditTea">
+        SELECT * from audit1
+        <where>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+            <if test="type!=null">
+                and type like '%${type}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryBookAll" parameterType="com.eurekaconsumer.pojo.Book" resultType="com.eurekaconsumer.pojo.Book">
+        SELECT * from book
+        <where>
+            <if test="bookName!=null">
+                and bookName like '%${bookName}%'
+            </if>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCourseAll" parameterType="com.eurekaconsumer.pojo.Course" resultType="com.eurekaconsumer.pojo.Course">
+        SELECT * from course
+        <where>
+            <if test="courseName!=null">
+                and courseName like '%${courseName}%'
+            </if>
+            <if test="major!=null">
+                and major like '%${major}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryGradeInfoAll" parameterType="com.eurekaconsumer.pojo.GradeInfo" resultType="com.eurekaconsumer.pojo.GradeInfo">
+        SELECT * from grade
+        <where>
+            <if test="campus!=null">
+                and campus like '%${campus}%'
+            </if>
+            <if test="faculty!=null">
+                and faculty like '%${faculty}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryInventoryAll" parameterType="com.eurekaconsumer.pojo.Inventory" resultType="com.eurekaconsumer.pojo.Inventory">
+        SELECT * from inventory
+        <where>
+            <if test="bookName!=null">
+                and bookName like '%${bookName}%'
+            </if>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryOfficerInfoAll" parameterType="com.eurekaconsumer.pojo.OfficerInfo" resultType="com.eurekaconsumer.pojo.OfficerInfo">
+        SELECT *
+        from officer
+        <where>
+            <if test="offName!=null">
+                and offName like '%${offName}%'
+            </if>
+            <if test="offId!=null">
+                and offId like '%${offId}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryOrderAll" parameterType="com.eurekaconsumer.pojo.Order" resultType="com.eurekaconsumer.pojo.Order">
+        SELECT * from `order`
+        <where>
+            <if test="bookName!=null">
+                and bookName like '%${bookName}%'
+            </if>
+            <if test="type!=null">
+                and type like '%${type}%'
+            </if>
+            <if test="state!=null">
+                and state like '%${state}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPrepareAll" parameterType="com.eurekaconsumer.pojo.Prepare" resultType="com.eurekaconsumer.pojo.Prepare">
+        SELECT * from prepare
+        <where>
+            <if test="bookName!=null">
+                and bookName like '%${bookName}%'
+            </if>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryReceiveStuAll" parameterType="com.eurekaconsumer.pojo.ReceiveStu" resultType="com.eurekaconsumer.pojo.ReceiveStu">
+        SELECT * from receive2
+        where stuId = #{stuId,jdbcType=INTEGER}
+        <if test="bookId!=null">
+            and bookId LIKE CONCAT('%', #{bookId}, '%')
+        </if>
+        <if test="type!=null">
+            and type LIKE CONCAT('%', #{type}, '%')
+        </if>
+    </select>
+
+    <select id="queryReceiveTeaAll" parameterType="com.eurekaconsumer.pojo.ReceiveTea" resultType="com.eurekaconsumer.pojo.ReceiveTea">
+        SELECT * from receive1
+        where teaId = #{teaId,jdbcType=INTEGER}
+        <if test="bookId!=null">
+            and bookId LIKE CONCAT('%', #{bookId}, '%')
+        </if>
+        <if test="type!=null">
+            and type LIKE CONCAT('%', #{type}, '%')
+        </if>
+    </select>
+
+
+    <select id="queryStorageAll" parameterType="com.eurekaconsumer.pojo.Storage" resultType="com.eurekaconsumer.pojo.Storage">
+        SELECT * from storage
+        <where>
+            <if test="bookName!=null">
+                and bookName like '%${bookName}%'
+            </if>
+            <if test="bookId!=null">
+                and bookId like '%${bookId}%'
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryStudentInfoAll" parameterType="com.eurekaconsumer.pojo.StudentInfo" resultType="com.eurekaconsumer.pojo.StudentInfo">
+        SELECT * from student
+        <where>
+            <if test="stuName!=null">
+                and stuName like '%${stuName}%'
+            </if>
+            <if test="stuId!=null">
+                and stuId like '%${stuId}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="queryTeacherInfoAll" parameterType="com.eurekaconsumer.pojo.TeacherInfo" resultType="com.eurekaconsumer.pojo.TeacherInfo">
+        SELECT * from teacher
+        <where>
+            <if test="teaName!=null">
+                and teaName like '%${teaName}%'
+            </if>
+            <if test="teaId!=null">
+                and teaId like '%${teaId}%'
+            </if>
+        </where>
+
+    </select>
+
+    <select id="queryVendorAll" parameterType="com.eurekaconsumer.pojo.Vendor" resultType="com.eurekaconsumer.pojo.Vendor">
+        SELECT * from vendor
+        <where>
+            <if test="vendorName!=null">
+                and vendorName like '%${vendorName}%'
+            </if>
+            <if test="vendorId!=null">
+                and vendorId like '%${vendorId}%'
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

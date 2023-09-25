@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.PrepareMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.Prepare" >
+    <constructor >
+      <idArg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="storage" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="needNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="suggestNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from prepare
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </select>
+  <select id="showView" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from pre1
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from prepare
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.Prepare" >
+    insert into prepare (bookId, bookName, storage, 
+      needNum, suggestNum)
+    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{storage,jdbcType=INTEGER},
+      #{needNum,jdbcType=INTEGER}, #{suggestNum,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.Prepare" >
+    update prepare
+    set bookName = #{bookName,jdbcType=VARCHAR},
+      storage = #{storage,jdbcType=INTEGER},
+      needNum = #{needNum,jdbcType=INTEGER},
+      suggestNum = #{suggestNum,jdbcType=INTEGER}
+    where bookId = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNum" parameterType="java.lang.Integer" >
+    update prepare
+    set suggestNum =
+        CASE WHEN storage >= needNum + #{num}
+             THEN 0
+             ELSE needNum +  #{num} - storage
+          END
+  </update>
+  <select id="queryPrepareAll" parameterType="com.yx.pojo.Prepare" resultType="com.yx.pojo.Prepare">
+    SELECT * from prepare
+    <where>
+      <if test="bookName!=null">
+        and bookName like '%${bookName}%'
+      </if>
+      <if test="bookId!=null">
+        and bookId like '%${bookId}%'
+      </if>
+    </where>
+  </select>
+
+</mapper>

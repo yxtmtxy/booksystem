@@ -1,0 +1,85 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "welcome"
+  },
+  "logoInfo": {
+    "title": "教务处端",
+    "image": "images/favicon.ico",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "信息管理",
+      "icon": "fa fa-bars",
+      "href": "",
+      "target": "_self",
+      "child": [
+          {
+              "title": "课程信息管理",
+              "href": "courseIndex",
+              "icon": "fa fa-group",
+              "target": "_self"
+          },
+        {
+          "title": "教材信息管理",
+          "href": "bookIndex",
+          "icon": "fa fa-book",
+          "target": "_self"
+        },
+        {
+          "title": "供应商信息管理",
+          "href": "vendorIndex",
+          "icon": "fa fa-automobile",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "title": "申报审核",
+      "icon": "fa fa-pencil",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "教师征订审核",
+          "href": "auditTeaIndex",
+          "icon": "fa fa-check-square",
+          "target": "_self"
+        },
+        {
+          "title": "学生征订审核",
+          "href": "auditStuIndex",
+          "icon": "fa fa-check-square",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "title": "教材管理",
+      "icon": "fa fa-bar-chart",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "教材征订详情",
+          "href": "orderIndex",
+          "icon": "fa fa-map",
+          "target": "_self"
+        },
+        {
+          "title": "教材入库登记",
+          "href": "storageIndex",
+          "icon": "fa fa-cube",
+          "target": "_self"
+        },
+        {
+          "title": "教材库存情况",
+          "href": "inventoryIndex",
+          "icon": "fa fa-suitcase",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.dao.ApplyStuMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.pojo.ApplyStu" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="courseId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="courseName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="stuId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+
+    </constructor>
+  </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from apply2
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from apply2
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yx.pojo.ApplyStu" >
+    insert into apply2 (id, bookId, bookName, 
+      courseId, courseName, number, 
+      date, type,stuId)
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, 
+      #{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{date,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yx.pojo.ApplyStu" >
+    update apply2
+    set bookId = #{bookId,jdbcType=INTEGER},
+      bookName = #{bookName,jdbcType=VARCHAR},
+      courseId = #{courseId,jdbcType=INTEGER},
+      courseName = #{courseName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="queryApplyStuAll" parameterType="com.yx.pojo.ApplyStu" resultType="com.yx.pojo.ApplyStu">
+    SELECT * from apply2
+    where stuId = #{stuId,jdbcType=INTEGER}
+      <if test="bookId!=null">
+        and bookId like '%${bookId}%'
+      </if>
+      <if test="type!=null">
+        and type like '%${type}%'
+      </if>
+  </select>
+</mapper>
