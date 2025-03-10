@@ -1,2 +1,3 @@
-教材征订发放信息管理系统，写的非常简单，大四课程设计用的
-springcloud框架写的，包含openfeign，hystrix，gateway
+教材征订发放信息管理系统
+springcloud框架写的
+
